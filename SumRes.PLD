@@ -1,0 +1,51 @@
+Name     sumres ;
+PartNo   00 ;
+Date     26/06/2020 ;
+Revision 01 ;
+Designer Engineer ;
+Company  jlrey ;
+Assembly None ;
+Location  ;
+Device   g22v10 ;
+
+/* *************** INPUT PINS *********************/
+PIN    1 = a0                        ; /*                                 */ 
+PIN    2 = a1                        ; /*                                 */ 
+PIN    3 = a2                        ; /*                                 */ 
+PIN    4 = a3                        ; /*                                 */ 
+
+PIN    5 = b0                        ; /*                                 */ 
+PIN    6 = b1                        ; /*                                 */ 
+PIN    7 = b2                        ; /*                                 */ 
+PIN    8 = b3                        ; /*                                 */ 
+
+PIN    9 = sel                        ; /*                                 */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN     14 = s0                        ; /*                                 */ 
+PIN     15 = s1                        ; /*                                 */ 
+PIN     16 = s2                        ; /*                                 */ 
+PIN     17 = s3                        ; /*                                 */ 
+PIN     18 = c3                        ; /*                                 */ 
+PINNODE     19 = c2                        ; /*                                 */ 
+PINNODE     20 = c1                        ; /*                                 */ 
+PINNODE     21 = c0                        ; /*                                 */ 
+PINNODE     23 = x                        ; /*                                 */ 
+
+function sum_1bit(x,y,Cin,Cout){
+Cout=Cin&x#Cin&y#x&y;
+sum_1bit=Cin$(x$y);
+}
+
+w0=b0$x;
+w1=b1$x;
+w2=b2$x;
+w3=b3$x;
+
+s0=sum_1bit(a0,w0,x,c0);
+s1=sum_1bit(a1,w1,c0,c1);
+s2=sum_1bit(a2,w2,c1,c2);
+s3=sum_1bit(a3,w3,c2,c3);
+
+x=sel&!a3&!b3#!sel&!a3&b3#sel&a3&b3#!sel&a3&!b3;
+
